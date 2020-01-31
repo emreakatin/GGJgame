@@ -14,15 +14,17 @@ var (
 func PlayerController() {
 	cameraPositionX = assets.GetCameraX()
 	cameraPositionY = assets.GetCameraY()
-
+	if rl.IsKeyDown(rl.KeyLeft) {
+		PlayerMoveLeft()
+	}
+	if rl.IsKeyDown(rl.KeyUp) {
+		PlayerMoveUp()
+	}
+	if rl.IsKeyDown(rl.KeyDown) {
+		PlayerMoveDown()
+	}
 	if rl.IsKeyDown(rl.KeyRight) {
 		PlayerMoveRight()
-	} else if rl.IsKeyDown(rl.KeyLeft) {
-		PlayerMoveLeft()
-	} else if rl.IsKeyDown(rl.KeyUp) {
-		PlayerMoveUp()
-	} else if rl.IsKeyDown(rl.KeyDown) {
-		PlayerMoveDown()
 	}
 }
 
