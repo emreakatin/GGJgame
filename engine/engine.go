@@ -12,14 +12,13 @@ const (
 	screenTitle string = "Battle Royale"
 )
 
-func init() {
-
-}
-
 func Run() {
 	rl.InitWindow(screenWidth, screenHeight, screenTitle)
 
 	rl.SetTargetFPS(60)
+
+	// INIT STATES
+	states.Load()
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
