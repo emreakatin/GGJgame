@@ -4,15 +4,15 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-var background rl.Texture2D
-var backgroundRectangle rl.Rectangle
+var Background rl.Texture2D
+var BackgroundRectangle rl.Rectangle
 
 func CreateBackground() {
-	background = rl.LoadTexture("sprites/background_1600_900.png")
+	Background = rl.LoadTexture("sprites/background_1600_900.png")
 
-	backgroundRectangle = rl.NewRectangle(0, 0, float32(background.Width), float32(background.Height))
+	BackgroundRectangle = rl.NewRectangle(0, 0, float32(Background.Width), float32(Background.Height))
 }
 
 func DrawBackground() {
-	rl.DrawTextureRec(background, backgroundRectangle, rl.Vector2{0, 0}, rl.White)
+	rl.DrawTextureRec(Background, BackgroundRectangle, rl.Vector2{0, 0}, rl.White)
 }
