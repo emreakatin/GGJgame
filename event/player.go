@@ -69,23 +69,24 @@ func PlayerController() {
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
 			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyE) {
-				assets.DrawPrompter("Press \"E\" for repair this tower", 23, 250)
+				assets.DrawPrompter("Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" for repair this tower", 23, 250)
 			} else if station.OwnerID == int(assets.PlayerID) {
 				assets.DrawPrompter("You're in safe!", 23, 250)
 			}
 
-			if assets.Stations[index].Health <= 100.0 {
+			if assets.Stations[index].Health <= 100.0 && assets.PlayerInventory.MechanicParts > 0 {
 				if rl.IsKeyDown(rl.KeyE) {
 					if station.OwnerID != int(assets.PlayerID) {
-						assets.Stations[index].Health += 10
-						assets.DrawPrompter("You are repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
+						assets.Stations[index].Health += 0.25
+						assets.PlayerInventory.MechanicParts -= 0.2
+						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						if assets.Stations[index].Health == 100 {
 							assets.Stations[index].OwnerID = int(assets.PlayerID)
 						}
 					} else {
 						if assets.Stations[index].Health > 0.0 && station.OwnerID != int(assets.PlayerID) {
 							assets.Stations[index].Health -= 0.2
-							assets.DrawPrompter("You are destroying enemy tower! %"+strconv.Itoa(int(100-assets.Stations[index].Health)), 23, 250)
+							assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(100-assets.Stations[index].Health)), 23, 250)
 						} else if assets.Stations[index].Health == 0 {
 							assets.Stations[index].OwnerID = -1
 						}
@@ -93,8 +94,8 @@ func PlayerController() {
 				}
 			}
 		}
+		station.UpdateStation()
 	}
-
 	assets.UpdateCamera()
 }
 
