@@ -15,9 +15,9 @@ type Station struct {
 	Rectangle rl.Rectangle
 
 	Position  rl.Vector2
-	OwnerID   int
-	Situation uint // 0: BROKEN, 1: REPAIRING, 2: REPAIRED
-	Health    uint // OVER 100
+	OwnerID   int     // -1: Unowned
+	Situation uint    // 0: BROKEN, 1: REPAIRING, 2: REPAIRED
+	Health    float32 // OVER 100
 }
 
 var Stations []Station
@@ -31,8 +31,9 @@ func (station Station) DrawStation() {
 
 	// rl.DrawRectangleRec(station.Rectangle, rl.Red)
 	rl.DrawTextureRec(station.Texture, station.Rectangle, station.Position, rl.White)
-	rl.DrawCircle(int32(station.Position.X+float32(station.Texture.Width)/2), int32(station.Position.Y+float32(station.Texture.Height)/2), StationRadius, rl.Color{uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+1) * uint8(40), uint8(station.OwnerID+1) * uint8(40), 50})
-
+	if station.OwnerID != -1 {
+		rl.DrawCircle(int32(station.Position.X+float32(station.Texture.Width)/2), int32(station.Position.Y+float32(station.Texture.Height)/2), StationRadius, rl.Color{uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+1) * uint8(40), uint8(station.OwnerID+1) * uint8(40), 50})
+	}
 	// rl.DrawCircle(int32(station.Position.X+float32(station.Texture.Width)/2), int32(station.Position.Y+float32(station.Texture.Height)/2), StationRadius, rl.Color{uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), 50})
 
 }
