@@ -1,6 +1,10 @@
 package assets
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	"strconv"
+
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
 
 const (
 	inventoryScale float32 = 0.5
@@ -33,6 +37,8 @@ func CreateInventory() {
 }
 
 func DrawInventory() {
+	rl.DrawText(strconv.Itoa(int(PlayerInventory.MechanicParts)), Background.Width-195, Background.Height-26, 23, rl.White)
+
 	if PlayerInventory.MechanicParts < turretCost {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 150), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
 	} else {
