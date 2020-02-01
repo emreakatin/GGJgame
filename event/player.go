@@ -15,7 +15,7 @@ func PlayerController() {
 		assets.Camera.Offset.X -= Speed
 	}
 
-	if rl.IsKeyDown(rl.KeyD) && float32(assets.PlayerPosition.X-Speed) < float32(assets.Background.Width) {
+	if rl.IsKeyDown(rl.KeyD) && float32(assets.PlayerPosition.X+float32(assets.Player.Width)+Speed) < float32(assets.Background.Width) {
 		assets.PlayerPosition.X += Speed
 		assets.Camera.Offset.X += Speed
 	}
@@ -25,7 +25,7 @@ func PlayerController() {
 		assets.Camera.Offset.Y -= Speed
 	}
 
-	if rl.IsKeyDown(rl.KeyS) && float32(assets.PlayerPosition.Y+Speed) < float32(assets.Background.Height) {
+	if rl.IsKeyDown(rl.KeyS) && float32(assets.PlayerPosition.Y+float32(assets.Player.Height)+Speed) < float32(assets.Background.Height) {
 		assets.PlayerPosition.Y += Speed
 		assets.Camera.Offset.Y += Speed
 	}
