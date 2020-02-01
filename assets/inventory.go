@@ -6,6 +6,12 @@ const (
 	inventoryScale float32 = 0.5
 )
 
+const (
+	turretCost  = 30
+	factoryCost = 150
+	bridgeCost  = 60
+)
+
 type Inventory struct {
 	Player        uint
 	MechanicParts uint
@@ -27,5 +33,21 @@ func CreateInventory() {
 }
 
 func DrawInventory() {
-	rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 150), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
+	if PlayerInventory.MechanicParts < turretCost {
+		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 150), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
+	} else {
+		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 150), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
+	}
+
+	if PlayerInventory.MechanicParts < factoryCost {
+		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 118), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
+	} else {
+		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 118), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
+	}
+
+	if PlayerInventory.MechanicParts < bridgeCost {
+		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 86), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
+	} else {
+		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 86), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
+	}
 }
