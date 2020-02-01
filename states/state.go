@@ -14,6 +14,9 @@ func Load() {
 
 	// BACKGROUND
 	assets.CreateBackground()
+
+	// PLAYER
+	assets.CreatePlayer()
 }
 
 func Run() {
@@ -23,6 +26,9 @@ func Run() {
 
 	// BACKGROUND
 	assets.DrawBackground()
+
+	// PLAYER
+	assets.DrawPlayer()
 
 	rl.EndMode2D()
 
