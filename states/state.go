@@ -22,8 +22,6 @@ func Load() {
 	// STATIONS
 	assets.Stations = scripts.GenerateStations()
 
-	// TURRETS
-
 	// INVENTORY
 	assets.CreateInventory()
 }
