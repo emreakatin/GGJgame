@@ -1,8 +1,6 @@
 package event
 
 import (
-	"fmt"
-
 	"github.com/emreakatin/GGJgame/assets"
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -31,8 +29,6 @@ func TurretController() {
 			} else if rl.IsKeyPressed(rl.KeyT) && assets.PlayerInventory.MechanicParts < assets.TurretCost {
 				promptFlag = true
 			}
-		} else {
-			fmt.Println("b")
 		}
 	}
 
