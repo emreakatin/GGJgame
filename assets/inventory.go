@@ -11,9 +11,9 @@ const (
 )
 
 const (
-	turretCost  = 30
-	factoryCost = 100
-	bridgeCost  = 60
+	TurretCost  = 30
+	FactoryCost = 100
+	BridgeCost  = 60
 )
 
 type Inventory struct {
@@ -39,19 +39,19 @@ func CreateInventory() {
 func DrawInventory() {
 	rl.DrawText(strconv.Itoa(int(PlayerInventory.MechanicParts)), Background.Width-195, Background.Height-26, 23, rl.White)
 
-	if PlayerInventory.MechanicParts < turretCost {
+	if PlayerInventory.MechanicParts < TurretCost {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 150), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
 	} else {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 150), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
 	}
 
-	if PlayerInventory.MechanicParts < factoryCost {
+	if PlayerInventory.MechanicParts < FactoryCost {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 118), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
 	} else {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 118), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
 	}
 
-	if PlayerInventory.MechanicParts < bridgeCost {
+	if PlayerInventory.MechanicParts < BridgeCost {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 86), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
 	} else {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 86), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)

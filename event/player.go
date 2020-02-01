@@ -94,7 +94,7 @@ func PlayerController() {
 				}
 			}
 		}
-		station.UpdateStation()
+		// station.UpdateStation()
 	}
 	assets.UpdateCamera()
 }
