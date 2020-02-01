@@ -47,6 +47,10 @@ func Run() {
 		turret.DrawTurret()
 	}
 
+	for _, factory := range assets.Factories {
+		factory.DrawFactory()
+	}
+
 	rl.EndMode2D()
 
 	assets.DrawInventory()
@@ -55,4 +59,5 @@ func Run() {
 
 	event.PlayerController()
 	event.TurretController()
+	event.FactoryController()
 }
