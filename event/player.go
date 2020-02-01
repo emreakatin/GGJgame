@@ -9,6 +9,7 @@ import (
 
 var (
 	Speed         float32 = 4
+	RepairRadius  float32 = 50
 	mousePosition rl.Vector2
 )
 
@@ -60,6 +61,14 @@ func PlayerController() {
 		if !isColliding(rl.Vector2{assets.PlayerPosition.X, assets.PlayerPosition.Y + Speed}) {
 			assets.PlayerPosition.Y += Speed
 			assets.Camera.Offset.Y += Speed
+		}
+	}
+
+	// IF NEAR BY ANY TOWER
+	// if rl.CheckCollisionCircleRec()
+	for _, station := range assets.Stations {
+		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + (station.Rectangle.X / 2), station.Position.Y + (station.Rectangle.Y / 2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
+			assets.DrawPrompter("Press \"E\" for repair this tower", 23, 250)
 		}
 	}
 

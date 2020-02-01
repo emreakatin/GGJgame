@@ -40,6 +40,7 @@ func Run() {
 	rl.EndMode2D()
 
 	rl.DrawText(fmt.Sprintf("Camera: X: %f Y: %f", assets.Camera.Offset.X, assets.Camera.Offset.Y), 190, 200, 20, rl.Black)
+	// assets.DrawPrompter("Hello haw cen i get to taksim", 23, 200)
 
 	event.PlayerController()
 

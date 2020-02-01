@@ -30,7 +30,8 @@ func (station Station) DrawStation() {
 	station.Rectangle = rl.Rectangle{station.Position.X, station.Position.Y, 50, 50}
 
 	rl.DrawRectangleRec(station.Rectangle, rl.Red)
-	rl.DrawCircle(int32(station.Position.X+25), int32(station.Position.Y+25), StationRadius, rl.Color{uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), 50})
+	rl.DrawCircle(int32(station.Position.X+float32(station.Texture.Width)/2), int32(station.Position.Y+float32(station.Texture.Height)/2), StationRadius, rl.Color{uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), 50})
+
 	// rl.DrawCircle(int32(station.Position.X+float32(station.Texture.Width)/2), int32(station.Position.Y+float32(station.Texture.Height)/2), StationRadius, rl.Color{uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), uint8(station.OwnerID+2) * uint8(40), 50})
 
 }
