@@ -12,13 +12,13 @@ const (
 
 const (
 	turretCost  = 30
-	factoryCost = 150
+	factoryCost = 100
 	bridgeCost  = 60
 )
 
 type Inventory struct {
 	Player        uint
-	MechanicParts uint
+	MechanicParts float32
 	Turret        uint
 }
 
@@ -29,7 +29,7 @@ var InventoryBlockTexture rl.Texture2D
 func CreateInventory() {
 	PlayerInventory = Inventory{
 		Player:        PlayerID,
-		MechanicParts: 0,
+		MechanicParts: 130,
 		Turret:        0,
 	}
 
