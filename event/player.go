@@ -73,7 +73,7 @@ func PlayerController() {
 			} else if station.OwnerID == -1 && rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts <= 0 {
 				assets.DrawPrompter("You do not have enough money!", 23, 250)
 			} else if station.OwnerID == int(assets.PlayerID) {
-				assets.DrawPrompter("You're in safe!", 23, 250)
+				assets.DrawPrompter("You're in safe!", 20, 410)
 			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.PlayerInventory.MechanicParts > 0 {

@@ -5,8 +5,8 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-var promptTicker = 0
-var promptFlag = false
+var promptTickerMoney = 0
+var promptFlagMoney = false
 
 func TurretController() {
 
@@ -27,19 +27,18 @@ func TurretController() {
 
 				assets.Turrets = append(assets.Turrets, turret)
 			} else if rl.IsKeyPressed(rl.KeyT) && assets.PlayerInventory.MechanicParts < assets.TurretCost {
-				promptFlag = true
+				promptFlagMoney = true
 			}
 		}
 	}
-
-	// PROMPTER FOR MOMEY
-	if promptFlag {
-		promptTicker++
-		if promptTicker < 90 {
-			assets.DrawPrompter("You do not have enough money", 23, 250)
-		} else if promptTicker == 90 {
-			promptFlag = false
-			promptTicker = 0
+	// PROMPTER FOR OUT OF SAFE ZONE AND MONEY
+	if promptFlagMoney {
+		promptTickerMoney++
+		if promptTickerMoney < 90 {
+			assets.DrawPrompter("You do not have enough mechanical part", 20, 250)
+		} else if promptTickerMoney == 90 {
+			promptFlagMoney = false
+			promptTickerMoney = 0
 		}
 	}
 }
