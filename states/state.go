@@ -33,8 +33,4 @@ func Run() {
 	rl.EndMode2D()
 
 	rl.DrawText(fmt.Sprintf("Camera: X: %f Y: %f", assets.Camera.Offset.X, assets.Camera.Offset.Y), 190, 200, 20, rl.Black)
-
-	fmt.Println(assets.Camera)
-	fmt.Println(assets.PlayerPosition)
-
 }
