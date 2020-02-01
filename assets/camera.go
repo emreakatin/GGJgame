@@ -15,5 +15,10 @@ func GetCameraY() float32 {
 }
 
 func CreateCamera() {
-	Camera = rl.NewCamera2D(rl.Vector2{0, 0}, rl.Vector2{0, 0}, 0, 2)
+	Camera = rl.NewCamera2D(rl.Vector2{float32(Background.Width) / 4, float32(Background.Height) / 4}, rl.Vector2{PlayerPosition.X, PlayerPosition.Y}, 0, 1.3)
+}
+
+func UpdateCamera() {
+	Camera.Target.X = PlayerPosition.X
+	Camera.Target.Y = PlayerPosition.Y
 }
