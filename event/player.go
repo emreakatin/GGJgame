@@ -1,6 +1,7 @@
 package event
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/emreakatin/GGJgame/assets"
@@ -9,7 +10,7 @@ import (
 
 var (
 	Speed         float32 = 4
-	RepairRadius  float32 = 50
+	RepairRadius  float32 = 80
 	mousePosition rl.Vector2
 )
 
@@ -67,7 +68,9 @@ func PlayerController() {
 	// IF NEAR BY ANY TOWER
 	// if rl.CheckCollisionCircleRec()
 	for _, station := range assets.Stations {
-		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + (station.Rectangle.X / 2), station.Position.Y + (station.Rectangle.Y / 2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
+		fmt.Println(station.Texture)
+		fmt.Println(station.Position)
+		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
 			assets.DrawPrompter("Press \"E\" for repair this tower", 23, 250)
 		}
 	}
@@ -79,7 +82,7 @@ func isColliding(nextPosition rl.Vector2) bool {
 	// STATIONS and TURRETS or etc. will be added
 	for _, station := range assets.Stations {
 
-		if rl.CheckCollisionRecs(rl.Rectangle{station.Position.X, station.Position.Y, 50, 50}, rl.Rectangle{nextPosition.X, nextPosition.Y, assets.PlayerRectangle.Width, assets.PlayerRectangle.Height}) {
+		if rl.CheckCollisionRecs(rl.Rectangle{station.Position.X, station.Position.Y, float32(station.Texture.Width), float32(station.Texture.Height)}, rl.Rectangle{nextPosition.X, nextPosition.Y, assets.PlayerRectangle.Width, assets.PlayerRectangle.Height}) {
 			return true
 		}
 	}
