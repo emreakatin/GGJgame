@@ -4,6 +4,8 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
+var PlayerID uint = 0
+
 var PlayerName string = "nukeci"
 
 var PlayerPosition rl.Vector2
