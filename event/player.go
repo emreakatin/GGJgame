@@ -29,18 +29,22 @@ func PlayerController() {
 
 	if rl.IsKeyDown(rl.KeyLeft) {
 		assets.PlayerPosition.X -= Speed
+		assets.Camera.Offset.X += Speed
 	}
 
 	if rl.IsKeyDown(rl.KeyRight) {
 		assets.PlayerPosition.X += Speed
+		assets.Camera.Offset.X -= Speed
 	}
 
 	if rl.IsKeyDown(rl.KeyUp) {
 		assets.PlayerPosition.Y -= Speed
+		assets.Camera.Offset.Y += Speed
 	}
 
 	if rl.IsKeyDown(rl.KeyDown) {
 		assets.PlayerPosition.Y += Speed
+		assets.Camera.Offset.Y -= Speed
 	}
 
 	assets.UpdateCamera()
