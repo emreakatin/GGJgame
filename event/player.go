@@ -23,11 +23,11 @@ func PlayerController() {
 
 		if degree >= 0 && degree <= 90 {
 			degree = 90 - degree
-		} else if degree < -90 && degree > -180 {
+		} else if degree <= -90 && degree >= -180 {
 			degree += 270 + 2*math.Abs(degree+90)
-		} else if degree < 0 && degree > -90 {
+		} else if degree <= 0 && degree >= -90 {
 			degree += 90 + 2*math.Abs(degree)
-		} else if degree < 180 && degree > 90 {
+		} else if degree <= 180 && degree >= 90 {
 			degree += 90 + 2*math.Abs(degree-180)
 		}
 
