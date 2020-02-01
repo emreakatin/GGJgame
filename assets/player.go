@@ -1,8 +1,6 @@
 package assets
 
 import (
-	"fmt"
-
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -27,7 +25,4 @@ func CreatePlayer() {
 func DrawPlayer() {
 	rl.DrawTexturePro(Player, rl.Rectangle{0, 0, float32(Player.Width), float32(Player.Height)}, rl.Rectangle{float32(PlayerPosition.X), float32(PlayerPosition.Y), float32(Player.Width * PlayerScale), float32(Player.Height * PlayerScale)},
 		rl.Vector2{float32(Player.Width / 2 * PlayerScale), float32(Player.Height / 2 * PlayerScale)}, PlayerRotation, rl.White)
-
-	fmt.Println("---", rl.Vector2{float32(Player.Width / 2), float32(Player.Height / 2)})
-
 }

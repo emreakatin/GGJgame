@@ -1,7 +1,6 @@
 package event
 
 import (
-	"fmt"
 	"math"
 
 	"github.com/emreakatin/GGJgame/assets"
@@ -31,31 +30,50 @@ func PlayerController() {
 		} else if degree < 180 && degree > 90 {
 			degree += 90 + 2*math.Abs(degree-180)
 		}
-		//// A.KOYIM YAPACAGIN OZELLIGIN BATU GOTUM CIKTI 4 TANE DENKLEM YAZANA KADAR AQ
+
 		assets.PlayerRotation = float32(degree)
-		fmt.Println(degree)
 	}
 
 	// MOVEMENT
 	if rl.IsKeyDown(rl.KeyA) && float32(assets.PlayerPosition.X-Speed) > 0 {
-		assets.PlayerPosition.X -= Speed
-		assets.Camera.Offset.X -= Speed
+		if !isColliding(rl.Vector2{assets.PlayerPosition.X - Speed, assets.PlayerPosition.Y}) {
+			assets.PlayerPosition.X -= Speed
+			assets.Camera.Offset.X -= Speed
+		}
 	}
 
 	if rl.IsKeyDown(rl.KeyD) && float32(assets.PlayerPosition.X+float32(assets.Player.Width)+Speed) < float32(assets.Background.Width) {
-		assets.PlayerPosition.X += Speed
-		assets.Camera.Offset.X += Speed
+		if !isColliding(rl.Vector2{assets.PlayerPosition.X + Speed, assets.PlayerPosition.Y}) {
+			assets.PlayerPosition.X += Speed
+			assets.Camera.Offset.X += Speed
+		}
 	}
 
 	if rl.IsKeyDown(rl.KeyW) && float32(assets.PlayerPosition.Y-Speed) > 0 {
-		assets.PlayerPosition.Y -= Speed
-		assets.Camera.Offset.Y -= Speed
+		if !isColliding(rl.Vector2{assets.PlayerPosition.X, assets.PlayerPosition.Y - Speed}) {
+			assets.PlayerPosition.Y -= Speed
+			assets.Camera.Offset.Y -= Speed
+		}
 	}
 
 	if rl.IsKeyDown(rl.KeyS) && float32(assets.PlayerPosition.Y+float32(assets.Player.Height)+Speed) < float32(assets.Background.Height) {
-		assets.PlayerPosition.Y += Speed
-		assets.Camera.Offset.Y += Speed
+		if !isColliding(rl.Vector2{assets.PlayerPosition.X, assets.PlayerPosition.Y + Speed}) {
+			assets.PlayerPosition.Y += Speed
+			assets.Camera.Offset.Y += Speed
+		}
 	}
 
 	assets.UpdateCamera()
+}
+
+func isColliding(nextPosition rl.Vector2) bool {
+	// STATIONS and TURRETS or etc. will be added
+	for _, station := range assets.Stations {
+
+		if rl.CheckCollisionRecs(rl.Rectangle{station.Position.X, station.Position.Y, 50, 50}, rl.Rectangle{nextPosition.X, nextPosition.Y, assets.PlayerRectangle.Width, assets.PlayerRectangle.Height}) {
+			return true
+		}
+	}
+
+	return false
 }
