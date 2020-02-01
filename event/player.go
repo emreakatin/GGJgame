@@ -66,7 +66,6 @@ func PlayerController() {
 	}
 
 	// IF NEAR BY ANY TOWER
-	// if rl.CheckCollisionCircleRec()
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
 			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyE) {

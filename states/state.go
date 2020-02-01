@@ -21,6 +21,9 @@ func Load() {
 
 	// STATIONS
 	assets.Stations = scripts.GenerateStations()
+
+	// INVENTORY
+	assets.CreateInventory()
 }
 
 func Run() {
@@ -39,6 +42,8 @@ func Run() {
 	}
 
 	rl.EndMode2D()
+
+	assets.DrawInventory()
 
 	rl.DrawText(fmt.Sprintf("Camera: X: %f Y: %f", assets.Camera.Offset.X, assets.Camera.Offset.Y), 190, 200, 20, rl.Black)
 	// assets.DrawPrompter("Hello haw cen i get to taksim", 23, 200)
