@@ -16,43 +16,71 @@ func GenerateStations() []assets.Station {
 	stations := []assets.Station{
 		assets.Station{
 			Position: rl.Vector2{
+				25,
+				25,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				330,
+				75,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				245,
+				390,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				490,
+				600,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				700,
+				860,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				630,
+				200,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				935,
+				300,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				1220,
 				170,
-				80,
 			},
 			Texture: texture,
 		},
 		assets.Station{
 			Position: rl.Vector2{
-				890,
-				156,
+				1040,
+				670,
 			},
 			Texture: texture,
 		},
 		assets.Station{
 			Position: rl.Vector2{
-				1480,
-				50,
-			},
-			Texture: texture,
-		},
-		assets.Station{
-			Position: rl.Vector2{
-				431,
-				750,
-			},
-			Texture: texture,
-		},
-		assets.Station{
-			Position: rl.Vector2{
-				1453,
-				800,
-			},
-			Texture: texture,
-		},
-		assets.Station{
-			Position: rl.Vector2{
-				800,
-				450,
+				1530,
+				300,
 			},
 			Texture: texture,
 		},
