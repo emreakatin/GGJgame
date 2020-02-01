@@ -29,7 +29,7 @@ var InventoryBlockTexture rl.Texture2D
 func CreateInventory() {
 	PlayerInventory = Inventory{
 		Player:        PlayerID,
-		MechanicParts: 130,
+		MechanicParts: 130000,
 		Turret:        0,
 	}
 
