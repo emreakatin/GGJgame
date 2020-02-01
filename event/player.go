@@ -10,6 +10,7 @@ import (
 
 var (
 	Speed         float32 = 4
+	RepairSpeed   float32 = 10
 	RepairRadius  float32 = 80
 	mousePosition rl.Vector2
 )
@@ -79,7 +80,7 @@ func PlayerController() {
 			if assets.Stations[index].Health <= 100.0 && assets.PlayerInventory.MechanicParts > 0 {
 				if rl.IsKeyDown(rl.KeyE) {
 					if station.OwnerID != int(assets.PlayerID) {
-						assets.Stations[index].Health += 0.25
+						assets.Stations[index].Health += RepairSpeed
 						assets.PlayerInventory.MechanicParts -= 0.2
 						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						if assets.Stations[index].Health == 100 {
@@ -87,7 +88,7 @@ func PlayerController() {
 						}
 					} else {
 						if assets.Stations[index].Health > 0.0 && station.OwnerID != int(assets.PlayerID) {
-							assets.Stations[index].Health -= 0.2
+							assets.Stations[index].Health -= RepairRadius
 							assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(100-assets.Stations[index].Health)), 23, 250)
 						} else if assets.Stations[index].Health == 0 {
 							assets.Stations[index].OwnerID = -1

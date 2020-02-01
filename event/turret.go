@@ -1,6 +1,8 @@
 package event
 
 import (
+	"fmt"
+	"math"
 	"strconv"
 
 	"github.com/emreakatin/GGJgame/assets"
@@ -25,6 +27,7 @@ func TurretController() {
 					Health:   100,
 					Rotation: assets.PlayerRotation,
 					Texture:  rl.LoadTexture("sprites/turret.png"),
+					LockedID: -1,
 				}
 
 				assets.Turrets = append(assets.Turrets, turret)
@@ -73,6 +76,84 @@ func TurretController() {
 			}
 		}
 
+	}
+
+	// TURRET FIRE
+	for index, turret := range assets.Turrets {
+		if turret.LockedID == -1 {
+			// FACTORY CHECK
+			// for factoryIndex, factory := range assets.Factories {
+			// 	if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, factory.Rectangle) {
+			// 		radian := math.Atan2(float64(turret.Position.X-factory.Position.Y), float64(factory.Position.X-turret.Position.Y))
+			// 		degree := radian * 180 / math.Pi
+
+			// 		if degree >= 0 && degree <= 90 {
+			// 			degree = 90 - degree
+			// 		} else if degree <= -90 && degree >= -180 {
+			// 			degree += 270 + 2*math.Abs(degree+90)
+			// 		} else if degree <= 0 && degree >= -90 {
+			// 			degree += 90 + 2*math.Abs(degree)
+			// 		} else if degree <= 180 && degree >= 90 {
+			// 			degree += 90 + 2*math.Abs(degree-180)
+			// 		}
+
+			// 		turret.Rotation = float32(degree)
+			// 		turret.LockedID = int(factory.ID)
+			// 		turret.LockedType = 2
+			// 	}
+			// }
+
+			// STATION CHECK
+			for _, station := range assets.Stations {
+				if station.OwnerID != -1 && station.OwnerID != int(assets.PlayerID) {
+					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2), float32(station.Texture.Width), float32(station.Texture.Height)}) {
+						radian := math.Atan2(float64((turret.Position.X)-station.Position.Y), float64(station.Position.X-turret.Position.Y))
+						degree := radian * 180 / math.Pi
+						if degree >= 0 && degree <= 90 {
+							degree = -1*degree + 90
+						} else if degree <= -90 && degree >= -180 {
+							degree += 270 + 2*math.Abs(degree+90)
+						} else if degree <= 0 && degree >= -90 {
+							degree += 90 + 2*math.Abs(degree)
+						} else if degree <= 180 && degree >= 90 {
+							degree += 90 + 2*math.Abs(degree-180)
+						}
+
+						fmt.Println(degree)
+						assets.Turrets[index].Rotation = float32(degree)
+						assets.Turrets[index].LockedID = int(station.ID)
+						assets.Turrets[index].LockedType = 1
+					}
+				}
+			}
+
+			// OTHER TURRETS CHECK
+			for _, otherTurret := range assets.Turrets {
+				if otherTurret.OwnerID != assets.PlayerID {
+					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{turret.Position.X, turret.Position.Y, float32(turret.Texture.Width), float32(turret.Texture.Height)}) {
+						radian := math.Atan2(float64(turret.Position.X-otherTurret.Position.Y), float64(otherTurret.Position.X-turret.Position.Y))
+						degree := radian * 180 / math.Pi
+
+						// if degree >= 0 && degree <= 90 {
+						// 	degree = 90 - degree
+						// } else if degree <= -90 && degree >= -180 {
+						// 	degree += 270 + 2*math.Abs(degree+90)
+						// } else if degree <= 0 && degree >= -90 {
+						// 	degree += 90 + 2*math.Abs(degree)
+						// } else if degree <= 180 && degree >= 90 {
+						// 	degree += 90 + 2*math.Abs(degree-180)
+						// }
+
+						degree = 0
+						assets.Turrets[index].Rotation = float32(degree)
+						assets.Turrets[index].LockedID = int(otherTurret.ID)
+						assets.Turrets[index].LockedType = 3
+					}
+				}
+			}
+		} else {
+			assets.Turrets[index].LockedID = -1
+		}
 	}
 
 	// PROMPTER FOR OUT OF SAFE ZONE AND MONEY
