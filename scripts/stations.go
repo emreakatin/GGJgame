@@ -11,42 +11,50 @@ const (
 
 func GenerateStations() []assets.Station {
 
+	texture := rl.LoadTexture("sprites/station.png")
+
 	stations := []assets.Station{
 		assets.Station{
 			Position: rl.Vector2{
 				170,
 				80,
 			},
+			Texture: texture,
 		},
 		assets.Station{
 			Position: rl.Vector2{
 				890,
 				156,
 			},
+			Texture: texture,
 		},
 		assets.Station{
 			Position: rl.Vector2{
 				1480,
 				50,
 			},
+			Texture: texture,
 		},
 		assets.Station{
 			Position: rl.Vector2{
 				431,
 				750,
 			},
+			Texture: texture,
 		},
 		assets.Station{
 			Position: rl.Vector2{
 				1453,
 				800,
 			},
+			Texture: texture,
 		},
 		assets.Station{
 			Position: rl.Vector2{
 				800,
 				450,
 			},
+			Texture: texture,
 		},
 	}
 
