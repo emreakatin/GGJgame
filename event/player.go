@@ -22,22 +22,18 @@ func PlayerController() {
 		radian := math.Atan2(float64(assets.PlayerPosition.Y-mousePosition.Y), float64(mousePosition.X-assets.PlayerPosition.X))
 		degree := radian * 180 / math.Pi
 
-		if degree > 0 && degree <= 90 {
+		if degree >= 0 && degree <= 90 {
 			degree = 90 - degree
-		} else if degree > 90 && degree <= 180 {
-			degree = 270 - degree
-		} else if degree > 180 && degree <= 270 {
-			degree = 270 - degree
-		} else if degree > 270 && degree <= 360 {
-			degree = 360 - degree
+		} else if degree < -90 && degree > -180 {
+			degree += 270 + 2*math.Abs(degree+90)
+		} else if degree < 0 && degree > -90 {
+			degree += 90 + 2*math.Abs(degree)
+		} else if degree < 180 && degree > 90 {
+			degree += 90 + 2*math.Abs(degree-180)
 		}
-
+		//// A.KOYIM YAPACAGIN OZELLIGIN BATU GOTUM CIKTI 4 TANE DENKLEM YAZANA KADAR AQ
 		assets.PlayerRotation = float32(degree)
-
-		fmt.Println(mousePosition)
-		fmt.Println(assets.PlayerPosition)
-
-		fmt.Println(assets.PlayerRotation)
+		fmt.Println(degree)
 	}
 
 	// MOVEMENT

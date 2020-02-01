@@ -20,7 +20,7 @@ func CreatePlayer() {
 
 	PlayerPosition = rl.Vector2{float32(Background.Width / 2), float32(Background.Height / 2)}
 
-	PlayerRotation = 90
+	PlayerRotation = 180
 	PlayerScale = 3
 }
 
