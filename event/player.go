@@ -41,22 +41,22 @@ func PlayerController() {
 	}
 
 	// MOVEMENT
-	if rl.IsKeyDown(rl.KeyLeft) {
+	if rl.IsKeyDown(rl.KeyA) && float32(assets.PlayerPosition.X-Speed) > 0 {
 		assets.PlayerPosition.X -= Speed
 		assets.Camera.Offset.X -= Speed
 	}
 
-	if rl.IsKeyDown(rl.KeyRight) {
+	if rl.IsKeyDown(rl.KeyD) && float32(assets.PlayerPosition.X+float32(assets.Player.Width)+Speed) < float32(assets.Background.Width) {
 		assets.PlayerPosition.X += Speed
 		assets.Camera.Offset.X += Speed
 	}
 
-	if rl.IsKeyDown(rl.KeyUp) {
+	if rl.IsKeyDown(rl.KeyW) && float32(assets.PlayerPosition.Y-Speed) > 0 {
 		assets.PlayerPosition.Y -= Speed
 		assets.Camera.Offset.Y -= Speed
 	}
 
-	if rl.IsKeyDown(rl.KeyDown) {
+	if rl.IsKeyDown(rl.KeyS) && float32(assets.PlayerPosition.Y+float32(assets.Player.Height)+Speed) < float32(assets.Background.Height) {
 		assets.PlayerPosition.Y += Speed
 		assets.Camera.Offset.Y += Speed
 	}
