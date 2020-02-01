@@ -66,7 +66,6 @@ func PlayerController() {
 	}
 
 	// IF NEAR BY ANY TOWER
-	// if rl.CheckCollisionCircleRec()
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
 			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyE) {
@@ -75,17 +74,17 @@ func PlayerController() {
 				assets.DrawPrompter("You're in safe!", 23, 250)
 			}
 
-			if assets.Stations[index].Health <= 100 {
+			if assets.Stations[index].Health <= 100.0 {
 				if rl.IsKeyDown(rl.KeyE) {
 					if station.OwnerID != int(assets.PlayerID) {
-						assets.Stations[index].Health += 1
+						assets.Stations[index].Health += 10
 						assets.DrawPrompter("You are repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						if assets.Stations[index].Health == 100 {
 							assets.Stations[index].OwnerID = int(assets.PlayerID)
 						}
 					} else {
-						if assets.Stations[index].Health > 0 && station.OwnerID != int(assets.PlayerID) {
-							assets.Stations[index].Health -= 1
+						if assets.Stations[index].Health > 0.0 && station.OwnerID != int(assets.PlayerID) {
+							assets.Stations[index].Health -= 0.2
 							assets.DrawPrompter("You are destroying enemy tower! %"+strconv.Itoa(int(100-assets.Stations[index].Health)), 23, 250)
 						} else if assets.Stations[index].Health == 0 {
 							assets.Stations[index].OwnerID = -1
