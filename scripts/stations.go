@@ -16,8 +16,22 @@ func GenerateStations() []assets.Station {
 	stations := []assets.Station{
 		assets.Station{
 			Position: rl.Vector2{
-				170,
-				80,
+				25,
+				25,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				330,
+				75,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				245,
+				390,
 			},
 			Texture: texture,
 			OwnerID: -1,
@@ -25,8 +39,8 @@ func GenerateStations() []assets.Station {
 		},
 		assets.Station{
 			Position: rl.Vector2{
-				890,
-				156,
+				490,
+				600,
 			},
 			Texture: texture,
 			OwnerID: -1,
@@ -34,8 +48,8 @@ func GenerateStations() []assets.Station {
 		},
 		assets.Station{
 			Position: rl.Vector2{
-				1480,
-				50,
+				700,
+				860,
 			},
 			Texture: texture,
 			OwnerID: -1,
@@ -43,8 +57,22 @@ func GenerateStations() []assets.Station {
 		},
 		assets.Station{
 			Position: rl.Vector2{
-				431,
-				750,
+				630,
+				200,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				935,
+				300,
+			},
+			Texture: texture,
+		},
+		assets.Station{
+			Position: rl.Vector2{
+				1220,
+				170,
 			},
 			Texture: texture,
 			OwnerID: -1,
@@ -52,8 +80,8 @@ func GenerateStations() []assets.Station {
 		},
 		assets.Station{
 			Position: rl.Vector2{
-				1453,
-				800,
+				1040,
+				670,
 			},
 			Texture: texture,
 			OwnerID: -1,
@@ -61,8 +89,8 @@ func GenerateStations() []assets.Station {
 		},
 		assets.Station{
 			Position: rl.Vector2{
-				800,
-				450,
+				1530,
+				300,
 			},
 			Texture: texture,
 			OwnerID: -1,
