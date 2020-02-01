@@ -68,8 +68,10 @@ func PlayerController() {
 	// IF NEAR BY ANY TOWER
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
-			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyE) {
+			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts >= 0 {
 				assets.DrawPrompter("Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" for repair this tower", 23, 250)
+			} else if station.OwnerID == -1 && rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts <= 0 {
+				assets.DrawPrompter("You do not have enough money!", 23, 250)
 			} else if station.OwnerID == int(assets.PlayerID) {
 				assets.DrawPrompter("You're in safe!", 23, 250)
 			}
@@ -91,25 +93,25 @@ func PlayerController() {
 							assets.Stations[index].OwnerID = -1
 						}
 					}
-
-					// STATION ANIMATION
-					if station.Health <= 25 {
-						assets.Stations[index].Texture = rl.LoadTexture("sprites/station0.png")
-					} else if station.Health <= 50 && station.Health > 25 {
-						assets.Stations[index].Texture = rl.LoadTexture("sprites/station1.png")
-					} else if station.Health <= 75 && station.Health > 50 {
-						assets.Stations[index].Texture = rl.LoadTexture("sprites/station2.png")
-					} else if station.Health < 100 && station.Health > 75 {
-						assets.Stations[index].Texture = rl.LoadTexture("sprites/station3.png")
-					} else if station.Health >= 100 {
-						assets.Stations[index].Texture = rl.LoadTexture("sprites/station4.png")
-					}
-
 				}
+
+				// STATION ANIMATION
+				if station.Health <= 25 {
+					assets.Stations[index].Texture = rl.LoadTexture("sprites/station0.png")
+				} else if station.Health <= 50 && station.Health > 25 {
+					assets.Stations[index].Texture = rl.LoadTexture("sprites/station1.png")
+				} else if station.Health <= 75 && station.Health > 50 {
+					assets.Stations[index].Texture = rl.LoadTexture("sprites/station2.png")
+				} else if station.Health < 100 && station.Health > 75 {
+					assets.Stations[index].Texture = rl.LoadTexture("sprites/station3.png")
+				} else if station.Health >= 100 {
+					assets.Stations[index].Texture = rl.LoadTexture("sprites/station4.png")
+				}
+
 			}
 		}
-		// station.UpdateStation()
 	}
+	// station.UpdateStation()
 	assets.UpdateCamera()
 }
 
