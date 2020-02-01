@@ -77,10 +77,19 @@ func PlayerController() {
 
 			if assets.Stations[index].Health <= 100 {
 				if rl.IsKeyDown(rl.KeyE) {
-					assets.Stations[index].Health += 1
-					assets.DrawPrompter("You are repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
-					if assets.Stations[index].Health == 100 {
-						assets.Stations[index].OwnerID = int(assets.PlayerID)
+					if station.OwnerID != int(assets.PlayerID) {
+						assets.Stations[index].Health += 1
+						assets.DrawPrompter("You are repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
+						if assets.Stations[index].Health == 100 {
+							assets.Stations[index].OwnerID = int(assets.PlayerID)
+						}
+					} else {
+						if assets.Stations[index].Health > 0 && station.OwnerID != int(assets.PlayerID) {
+							assets.Stations[index].Health -= 1
+							assets.DrawPrompter("You are destroying enemy tower! %"+strconv.Itoa(int(100-assets.Stations[index].Health)), 23, 250)
+						} else if assets.Stations[index].Health == 0 {
+							assets.Stations[index].OwnerID = -1
+						}
 					}
 				}
 			}
