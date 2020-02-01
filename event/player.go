@@ -91,6 +91,20 @@ func PlayerController() {
 							assets.Stations[index].OwnerID = -1
 						}
 					}
+
+					// STATION ANIMATION
+					if station.Health <= 25 {
+						assets.Stations[index].Texture = rl.LoadTexture("sprites/station0.png")
+					} else if station.Health <= 50 && station.Health > 25 {
+						assets.Stations[index].Texture = rl.LoadTexture("sprites/station1.png")
+					} else if station.Health <= 75 && station.Health > 50 {
+						assets.Stations[index].Texture = rl.LoadTexture("sprites/station2.png")
+					} else if station.Health < 100 && station.Health > 75 {
+						assets.Stations[index].Texture = rl.LoadTexture("sprites/station3.png")
+					} else if station.Health >= 100 {
+						assets.Stations[index].Texture = rl.LoadTexture("sprites/station4.png")
+					}
+
 				}
 			}
 		}
