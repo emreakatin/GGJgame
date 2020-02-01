@@ -25,14 +25,9 @@ func CreatePlayer() {
 }
 
 func DrawPlayer() {
-<<<<<<< HEAD
 	rl.DrawTexturePro(Player, rl.Rectangle{0, 0, float32(Player.Width), float32(Player.Height)}, rl.Rectangle{float32(PlayerPosition.X), float32(PlayerPosition.Y), float32(Player.Width * PlayerScale), float32(Player.Height * PlayerScale)},
 		rl.Vector2{float32(Player.Width / 2 * PlayerScale), float32(Player.Height / 2 * PlayerScale)}, PlayerRotation, rl.White)
 
 	fmt.Println("---", rl.Vector2{float32(Player.Width / 2), float32(Player.Height / 2)})
 
-=======
-	rl.DrawTexturePro(Player, rl.Rectangle{float32(Player.Width), float32(Player.Height), float32(Player.Width), float32(Player.Height)}, rl.Rectangle{float32(PlayerPosition.X), float32(PlayerPosition.Y), float32(Player.Width * PlayerScale), float32(Player.Height * PlayerScale)},
-		rl.Vector2{float32(Player.Width / 2), float32(Player.Height / 2)}, PlayerRotation, rl.White)
->>>>>>> b8ddae5885015fba5187832fac47c16bbb3ea0fb
 }
