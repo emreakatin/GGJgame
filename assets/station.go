@@ -28,7 +28,7 @@ func (station Station) CreateStation() {
 
 func (station Station) DrawStation() {
 	// station.Rectangle = rl.Rectangle{station.Position.X, station.Position.Y, float32(station.Texture.Width), float32(station.Texture.Height)}
-	station.Rectangle = rl.NewRectangle(station.Position.X, station.Position.Y, float32(station.Texture.Width), float32(station.Texture.Height))
+	station.Rectangle = rl.NewRectangle(0, 0, float32(station.Texture.Width), float32(station.Texture.Height))
 
 	// rl.DrawRectangleRec(station.Rectangle, rl.Red)
 	rl.DrawTextureRec(station.Texture, station.Rectangle, station.Position, rl.Red)
