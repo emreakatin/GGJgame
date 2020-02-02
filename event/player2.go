@@ -3,7 +3,6 @@ package event
 import (
 	"fmt"
 	"math"
-	"strconv"
 
 	"github.com/emreakatin/GGJgame/assets"
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -63,25 +62,25 @@ func Player2Controller() {
 	// NEAR BY TURRET
 	if rl.IsKeyPressed(rl.KeyRightShift) && assets.Player2Inventory.MechanicParts < assets.TurretCost {
 		fmt.Println("hololoooooooo")
-	} else if rl.IsKeyDown(rl.KeyRightShift) {
+	} else if rl.IsKeyDown(rl.KeyEnd) {
 		// TURRET COLLIDING
 		for index, turret := range assets.Turrets {
 
 			if rl.CheckCollisionCircleRec(rl.Vector2{(turret.Position.X + float32(0)/2), (turret.Position.Y + float32(0)/2)}, assets.TurretRadius, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) {
-				if turret.OwnerID == assets.PlayerID {
+				if turret.OwnerID == assets.Player2ID {
 					if turret.Health > 0 {
 						assets.Turrets[index].Health -= 1
-						assets.DrawPrompter("Removing turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
+						//assets.DrawPrompter("Removing turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
 					} else if turret.Health <= 0 {
 						assets.Turrets = append(assets.Turrets[:index], assets.Turrets[index+1:]...)
 						assets.Player2Inventory.MechanicParts += assets.TurretCost * 2 / 3
 					}
 
-				} else if turret.OwnerID != assets.PlayerID {
+				} else if turret.OwnerID != assets.Player2ID {
 					if turret.Health > 0 && assets.Player2Inventory.MechanicParts >= float32(turret.Health) {
 						assets.Turrets[index].Health -= 1
 						assets.Player2Inventory.MechanicParts -= 15 / 100
-						assets.DrawPrompter("Destroying turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
+						//assets.DrawPrompter("Destroying turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
 					} else if turret.Health <= 0 {
 						assets.Turrets = append(assets.Turrets[:index], assets.Turrets[index+1:]...)
 					}
@@ -95,16 +94,16 @@ func Player2Controller() {
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius2, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) {
 			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyRightShift) && assets.Player2Inventory.MechanicParts >= 0 {
-				assets.DrawPrompter("Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" for repair this tower", 23, 250)
+				//assets.DrawPrompter("Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" for repair this tower", 23, 250)
 			} else if station.OwnerID == -1 && rl.IsKeyDown(rl.KeyRightShift) && assets.Player2Inventory.MechanicParts <= 0 {
-				assets.DrawPrompter("You do not have enough money!", 23, 250)
+				//assets.DrawPrompter("You do not have enough money!", 23, 250)
 			} else if station.OwnerID == int(assets.Player2ID) {
-				assets.DrawPrompter("You're in safe!", 20, 410)
+				//assets.DrawPrompter("You're in safe!", 20, 410)
 			} else if station.OwnerID != int(assets.Player2ID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 && !rl.IsKeyDown(rl.KeyRightShift) {
-				assets.DrawPrompter("Destroying the enemy tower will cost "+strconv.Itoa(int(assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to destroy this tower", 23, 250)
+				//assets.DrawPrompter("Destroying the enemy tower will cost "+strconv.Itoa(int(assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to destroy this tower", 23, 250)
 			}
 			if station.OwnerID == int(assets.Player2ID) && !rl.IsKeyDown(rl.KeyRightShift) && assets.Stations[index].Health < 100 {
-				assets.DrawPrompter("Somebody attacked your tower! Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to repair this tower", 23, 250)
+				//assets.DrawPrompter("Somebody attacked your tower! Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to repair this tower", 23, 250)
 			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.Player2Inventory.MechanicParts > 0 {
@@ -113,7 +112,7 @@ func Player2Controller() {
 					if station.OwnerID == -1 {
 						assets.Stations[index].Health += 0.25
 						assets.PlayerInventory.MechanicParts -= 0.25
-						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
+						//assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						if assets.Stations[index].Health == 100 {
 							assets.Stations[index].OwnerID = int(assets.Player2ID)
 
@@ -121,12 +120,12 @@ func Player2Controller() {
 					} else if assets.Stations[index].Health < 100.0 && assets.Stations[index].OwnerID == int(assets.Player2ID) && DestroyFlag == false {
 						assets.Stations[index].Health += 0.25
 						assets.PlayerInventory.MechanicParts -= 0.25
-						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
+						//assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 					} else if assets.Stations[index].Health >= 0 && assets.Stations[index].OwnerID != int(assets.Player2ID) && assets.Stations[index].OwnerID != -1 {
 						DestroyFlag = true
 						assets.Stations[index].Health -= 0.5
 						assets.PlayerInventory.MechanicParts -= 0.5
-						assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
+						//assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						if assets.Stations[index].Health < 1 {
 							assets.Stations[index].OwnerID = -1
 							DestroyFlag = false

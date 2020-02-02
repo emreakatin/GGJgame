@@ -57,6 +57,7 @@ func Run() {
 
 	event.TurretController()
 	event.Turret2Controller()
+	event.Turret3Controller()
 
 	event.PlayerController()
 	event.Player2Controller()

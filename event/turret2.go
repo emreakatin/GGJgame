@@ -15,7 +15,7 @@ func Turret2Controller() {
 	// CREATE TURRET
 	for _, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, assets.StationRadius, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) && station.OwnerID == int(assets.Player2ID) {
-			if rl.IsKeyPressed(rl.KeyM) && assets.Player2Inventory.MechanicParts > assets.TurretCost {
+			if rl.IsKeyPressed(rl.KeyRightControl) && assets.Player2Inventory.MechanicParts > assets.TurretCost {
 				fmt.Println("lalalooo")
 				assets.LastTurretID += 1
 				assets.Player2Inventory.MechanicParts += -assets.TurretCost
@@ -42,9 +42,9 @@ func Turret2Controller() {
 		if rl.CheckCollisionCircleRec(rl.Vector2{(turret.Position.X + float32(0)/2), (turret.Position.Y + float32(0)/2)}, assets.TurretRadius, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) {
 			if !rl.IsKeyDown(rl.KeyRightShift) {
 				if turret.OwnerID == assets.Player2ID {
-					assets.DrawPrompter("Hold press \"E\" to remove this turret", 23, 235)
+					//assets.DrawPrompter("Hold press \"E\" to remove this turret", 23, 235)
 				} else if turret.OwnerID != assets.Player2ID {
-					assets.DrawPrompter("Hold press \"E\" to destroy enemy turret", 23, 235)
+					//assets.DrawPrompter("Hold press \"E\" to destroy enemy turret", 23, 235)
 				}
 			}
 		}

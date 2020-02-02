@@ -38,7 +38,7 @@ func TurretController() {
 				assets.Turrets = append(assets.Turrets, turret)
 			} else if rl.IsKeyPressed(rl.KeyT) && assets.PlayerInventory.MechanicParts < assets.TurretCost {
 				promptFlagMoney = true
-			} else if rl.IsKeyDown(rl.KeyE) {
+			} else if rl.IsKeyDown(rl.KeyQ) {
 				// TURRET COLLIDING
 				for index, turret := range assets.Turrets {
 
