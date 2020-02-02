@@ -40,11 +40,11 @@ func Turret2Controller() {
 	for _, turret := range assets.Turrets {
 
 		if rl.CheckCollisionCircleRec(rl.Vector2{(turret.Position.X + float32(0)/2), (turret.Position.Y + float32(0)/2)}, assets.TurretRadius, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) {
-			if !rl.IsKeyDown(rl.KeyLeftShift) {
+			if !rl.IsKeyDown(rl.KeyRightShift) {
 				if turret.OwnerID == assets.Player2ID {
-					assets.DrawPrompter("Hold press \"E\" for remove this turret", 23, 235)
+					assets.DrawPrompter("Hold press \"E\" to remove this turret", 23, 235)
 				} else if turret.OwnerID != assets.Player2ID {
-					assets.DrawPrompter("Hold press \"E\" for destroy this enemy turret", 23, 235)
+					assets.DrawPrompter("Hold press \"E\" to destroy enemy turret", 23, 235)
 				}
 			}
 		}

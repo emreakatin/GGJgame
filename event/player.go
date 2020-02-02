@@ -1,7 +1,6 @@
 package event
 
 import (
-	"fmt"
 	"math"
 	"strconv"
 
@@ -76,7 +75,6 @@ func PlayerController() {
 			if station.OwnerID == int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.Stations[index].Health < 100 {
 				assets.DrawPrompter("Somebody attacked your tower! Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to repair this tower", 23, 250)
 			}
-			fmt.Println(assets.Stations[index].Health)
 			if assets.PlayerInventory.MechanicParts > 0 {
 				if rl.IsKeyDown(rl.KeyE) {
 					assets.Player = rl.LoadTexture("sprites/p1_8.png")

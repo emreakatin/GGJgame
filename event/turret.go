@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	TurretDamage = 10
+	TurretDamage = 4
 )
 
 var promptTickerMoney = 0
@@ -158,12 +158,12 @@ func TurretController() {
 				}
 			}
 
-			if assets.Turrets[index].Ticker <= 90 {
+			if assets.Turrets[index].Ticker <= 45 {
 				assets.Turrets[index].Ticker++
-			} else if assets.Turrets[index].Ticker > 90 && assets.Turrets[index].Ticker < 120 {
+			} else if assets.Turrets[index].Ticker > 45 && assets.Turrets[index].Ticker < 60 {
 				assets.Turrets[index].Ticker++
 				assets.Turrets[index].Thick++
-			} else if assets.Turrets[index].Ticker == 120 {
+			} else if assets.Turrets[index].Ticker == 60 {
 				assets.Turrets[index].Ticker = 0
 				assets.Turrets[index].Thick = 0
 
@@ -171,6 +171,7 @@ func TurretController() {
 					for stationIndex, station := range assets.Stations {
 						if int(station.ID) == assets.Turrets[index].LockedID {
 							assets.Stations[stationIndex].Health -= TurretDamage
+							UpdateStation()
 
 							if assets.Stations[stationIndex].Health <= 0 {
 								assets.Stations[stationIndex].OwnerID = -1
@@ -184,6 +185,7 @@ func TurretController() {
 					for turretIndex, otherTurret := range assets.Turrets {
 						if int(otherTurret.ID) == assets.Turrets[index].LockedID {
 							assets.Turrets[turretIndex].Health -= TurretDamage
+							UpdateStation()
 
 							if assets.Turrets[turretIndex].Health <= 0 {
 								assets.Turrets = append(assets.Turrets[:turretIndex], assets.Turrets[turretIndex+1:]...)
@@ -197,6 +199,7 @@ func TurretController() {
 					for factoryIndex, factory := range assets.Factories {
 						if int(factory.ID) == assets.Turrets[index].LockedID {
 							assets.Factories[factoryIndex].Health -= TurretDamage
+							UpdateStation()
 
 							if assets.Factories[factoryIndex].Health <= 0 {
 								assets.Factories = append(assets.Factories[:factoryIndex], assets.Factories[factoryIndex+1:]...)
@@ -221,6 +224,22 @@ func TurretController() {
 		} else if promptTickerMoney == 90 {
 			promptFlagMoney = false
 			promptTickerMoney = 0
+		}
+	}
+}
+
+func UpdateStation() {
+	for index, station := range assets.Stations {
+		if station.Health <= 25 {
+			assets.Stations[index].Texture = rl.LoadTexture("sprites/station0.png")
+		} else if station.Health <= 50 && station.Health > 25 {
+			assets.Stations[index].Texture = rl.LoadTexture("sprites/station1.png")
+		} else if station.Health <= 75 && station.Health > 50 {
+			assets.Stations[index].Texture = rl.LoadTexture("sprites/station2.png")
+		} else if station.Health < 100 && station.Health > 75 {
+			assets.Stations[index].Texture = rl.LoadTexture("sprites/station3.png")
+		} else if station.Health >= 100 {
+			assets.Stations[index].Texture = rl.LoadTexture("sprites/station4.png")
 		}
 	}
 }

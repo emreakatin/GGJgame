@@ -61,9 +61,9 @@ func Player2Controller() {
 	}
 
 	// NEAR BY TURRET
-	if rl.IsKeyPressed(rl.KeyN) && assets.Player2Inventory.MechanicParts < assets.TurretCost {
+	if rl.IsKeyPressed(rl.KeyRightShift) && assets.Player2Inventory.MechanicParts < assets.TurretCost {
 		fmt.Println("hololoooooooo")
-	} else if rl.IsKeyDown(rl.KeyN) {
+	} else if rl.IsKeyDown(rl.KeyRightShift) {
 		// TURRET COLLIDING
 		for index, turret := range assets.Turrets {
 
@@ -108,8 +108,8 @@ func Player2Controller() {
 			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.Player2Inventory.MechanicParts > 0 {
-				if rl.IsKeyDown(rl.KeyN) {
-					assets.Player2 = rl.LoadTexture("sprites/p2_8.png")
+				if rl.IsKeyDown(rl.KeyRightShift) {
+					assets.Player2 = rl.LoadTexture("sprites/p2_7.png")
 					if station.OwnerID == -1 {
 						assets.Stations[index].Health += 0.25
 						assets.PlayerInventory.MechanicParts -= 0.25
