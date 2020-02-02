@@ -19,9 +19,9 @@ func FactoryController() {
 				assets.PlayerInventory.MechanicParts += -assets.FactoryCost
 				factory := assets.Factory{
 					ID:       uint(assets.LastFactoryID),
-					OwnerID:  assets.PlayerID,
+					OwnerID:  int(assets.PlayerID),
 					Position: assets.PlayerPosition,
-					Health:   0,
+					Health:   100,
 					Rotation: 0,
 					Texture:  rl.LoadTexture("sprites/factory.png"),
 				}
@@ -46,7 +46,7 @@ func FactoryController() {
 
 func EarningMechanicalParts() {
 	for _, factory := range assets.Factories {
-		if factory.OwnerID == uint(assets.PlayerID) {
+		if factory.OwnerID == int(assets.PlayerID) {
 			MPTicker++
 			if MPTicker >= 90 {
 				assets.PlayerInventory.MechanicParts++
