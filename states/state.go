@@ -55,12 +55,12 @@ func Run() {
 
 	assets.DrawInventory()
 
+	event.TurretController()
+	event.Turret2Controller()
+
 	event.PlayerController()
 	event.Player2Controller()
 	event.Player3Controller()
-
-	event.TurretController()
-	event.Turret2Controller()
 	// event.TurretController()
 	event.FactoryController()
 }

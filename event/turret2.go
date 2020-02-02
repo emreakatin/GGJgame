@@ -2,7 +2,6 @@ package event
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/emreakatin/GGJgame/assets"
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -28,38 +27,11 @@ func Turret2Controller() {
 					Rotation: 0,
 					Texture:  rl.LoadTexture("sprites/turret.png"),
 					LockedID: -1,
+					Ticker:   0,
+					Thick:    0,
 				}
 
 				assets.Turrets = append(assets.Turrets, turret)
-			} else if rl.IsKeyPressed(rl.KeyM) && assets.Player2Inventory.MechanicParts < assets.TurretCost {
-				prompt2FlagMoney = true
-				fmt.Println("hololoooooooo")
-			} else if rl.IsKeyDown(rl.KeyLeftShift) {
-				// TURRET COLLIDING
-				for index, turret := range assets.Turrets {
-
-					if rl.CheckCollisionCircleRec(rl.Vector2{(turret.Position.X + float32(0)/2), (turret.Position.Y + float32(0)/2)}, assets.TurretRadius, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.PlayerScale), float32(assets.Player2.Height * assets.PlayerScale)}) {
-						if turret.OwnerID == assets.PlayerID {
-							if turret.Health > 0 {
-								assets.Turrets[index].Health -= 1
-								assets.DrawPrompter("Removing turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
-							} else if turret.Health <= 0 {
-								assets.Turrets = append(assets.Turrets[:index], assets.Turrets[index+1:]...)
-								assets.Player2Inventory.MechanicParts += assets.TurretCost * 2 / 3
-							}
-
-						} else if turret.OwnerID != assets.PlayerID {
-							if turret.Health > 0 && assets.Player2Inventory.MechanicParts >= float32(turret.Health) {
-								assets.Turrets[index].Health -= 1
-								assets.Player2Inventory.MechanicParts -= 15 / 100
-								assets.DrawPrompter("Destroying turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
-							} else if turret.Health <= 0 {
-								assets.Turrets = append(assets.Turrets[:index], assets.Turrets[index+1:]...)
-							}
-						}
-					}
-
-				}
 			}
 		}
 	}

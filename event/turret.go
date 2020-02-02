@@ -2,11 +2,14 @@ package event
 
 import (
 	"fmt"
-	"math"
 	"strconv"
 
 	"github.com/emreakatin/GGJgame/assets"
 	rl "github.com/gen2brain/raylib-go/raylib"
+)
+
+const (
+	TurretDamage = 10
 )
 
 var promptTickerMoney = 0
@@ -28,6 +31,8 @@ func TurretController() {
 					Rotation: 0,
 					Texture:  rl.LoadTexture("sprites/turret.png"),
 					LockedID: -1,
+					Thick:    0,
+					Ticker:   0,
 				}
 
 				assets.Turrets = append(assets.Turrets, turret)
@@ -82,84 +87,129 @@ func TurretController() {
 	for index, turret := range assets.Turrets {
 		if turret.LockedID == -1 {
 			// FACTORY CHECK
-			// for factoryIndex, factory := range assets.Factories {
-			// 	if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, factory.Rectangle) {
-			// 		radian := math.Atan2(float64(turret.Position.X-factory.Position.Y), float64(factory.Position.X-turret.Position.Y))
-			// 		degree := radian * 180 / math.Pi
+			for _, factory := range assets.Factories {
+				if factory.OwnerID != int(turret.OwnerID) {
+					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{factory.Position.X, factory.Position.Y, float32(factory.Texture.Width), float32(factory.Texture.Height)}) {
 
-			// 		if degree >= 0 && degree <= 90 {
-			// 			degree = 90 - degree
-			// 		} else if degree <= -90 && degree >= -180 {
-			// 			degree += 270 + 2*math.Abs(degree+90)
-			// 		} else if degree <= 0 && degree >= -90 {
-			// 			degree += 90 + 2*math.Abs(degree)
-			// 		} else if degree <= 180 && degree >= 90 {
-			// 			degree += 90 + 2*math.Abs(degree-180)
-			// 		}
-
-			// 		turret.Rotation = float32(degree)
-			// 		turret.LockedID = int(factory.ID)
-			// 		turret.LockedType = 2
-			// 	}
-			// }
-
-			// STATION CHECK
-			mousePosition = rl.GetMousePosition()
-			for _, station := range assets.Stations {
-				if station.OwnerID != -1 && station.OwnerID != int(assets.PlayerID) {
-					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2), float32(station.Texture.Width), float32(station.Texture.Height)}) {
-						radian := math.Atan2(float64(turret.Position.Y-station.Position.Y)+float64(station.Texture.Height/2), float64(turret.Position.X-station.Position.X)+float64(station.Texture.Width/2))
-						degree := radian * 180 / math.Pi
-						fmt.Println("ilk degre", degree)
-						if degree < -90 && degree > -180 {
-							degree = degree - 90
-						}
-
-						// if degree >= 0 && degree <= 90 {
-						// 	degree = -1*degree + 90
-						// } else if degree <= -90 && degree >= -180 {
-						// 	degree += 270 + 2*math.Abs(degree+90)
-						// } else if degree <= 0 && degree >= -90 {
-						// 	degree += 90 + 2*math.Abs(degree)
-						// } else if degree <= 180 && degree >= 90 {
-						// 	degree += 90 + 2*math.Abs(degree-180)
-						// }
-
-						fmt.Println(degree)
-						fmt.Println(mousePosition)
-						assets.Turrets[index].Rotation = float32(degree)
-						assets.Turrets[index].LockedID = int(station.ID)
-						assets.Turrets[index].LockedType = 1
+						turret.LockedID = int(factory.ID)
+						turret.LockedType = 2
+						assets.Turrets[index].Ticker = 0
+						assets.Turrets[index].Thick = 0
+						assets.Turrets[index].ReloadFPS = 0
 					}
 				}
 			}
 
-			// OTHER TURRETS CHECK
+			// STATION CHECK
+			for _, station := range assets.Stations {
+				if station.OwnerID != -1 && station.OwnerID != int(turret.OwnerID) {
+					// if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2), float32(station.Texture.Width), float32(station.Texture.Height)}) {
+					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{station.Position.X, station.Position.Y, float32(station.Texture.Width), float32(station.Texture.Height)}) {
+
+						assets.Turrets[index].LockedID = int(station.ID)
+						assets.Turrets[index].LockedType = 1
+						assets.Turrets[index].Ticker = 0
+						assets.Turrets[index].Thick = 0
+						assets.Turrets[index].ReloadFPS = 0
+					}
+				}
+			}
+
 			for _, otherTurret := range assets.Turrets {
-				if otherTurret.OwnerID != assets.PlayerID {
-					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{turret.Position.X, turret.Position.Y, float32(turret.Texture.Width), float32(turret.Texture.Height)}) {
-						radian := math.Atan2(float64(turret.Position.X-otherTurret.Position.Y), float64(otherTurret.Position.X-turret.Position.Y))
-						degree := radian * 180 / math.Pi
+				if otherTurret.OwnerID != turret.OwnerID && otherTurret.ID != turret.ID {
+					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{otherTurret.Position.X, otherTurret.Position.Y, float32(otherTurret.Texture.Width), float32(otherTurret.Texture.Height)}) {
 
-						// if degree >= 0 && degree <= 90 {
-						// 	degree = 90 - degree
-						// } else if degree <= -90 && degree >= -180 {
-						// 	degree += 270 + 2*math.Abs(degree+90)
-						// } else if degree <= 0 && degree >= -90 {
-						// 	degree += 90 + 2*math.Abs(degree)
-						// } else if degree <= 180 && degree >= 90 {
-						// 	degree += 90 + 2*math.Abs(degree-180)
-						// }
-
-						degree = 0
-						assets.Turrets[index].Rotation = float32(degree)
 						assets.Turrets[index].LockedID = int(otherTurret.ID)
 						assets.Turrets[index].LockedType = 3
+						assets.Turrets[index].ReloadFPS = 0
 					}
 				}
 			}
 		} else {
-			assets.Turrets[index].LockedID = -1
+			//assets.Turrets[index].LockedID = -1
+
+			var trgtX float32
+			var trgtY float32
+
+			if assets.Turrets[index].LockedType == 1 {
+				for _, station := range assets.Stations {
+					if int(station.ID) == assets.Turrets[index].LockedID {
+						trgtX = station.Position.X + float32(station.Texture.Width)/2
+						trgtY = station.Position.Y + float32(station.Texture.Height)/2
+					}
+				}
+			}
+
+			if assets.Turrets[index].LockedType == 2 {
+				for _, factory := range assets.Factories {
+					if int(factory.ID) == assets.Turrets[index].LockedID {
+						trgtX = factory.Position.X + float32(factory.Texture.Width)/2
+						trgtY = factory.Position.Y + float32(factory.Texture.Height)/2
+					}
+				}
+			}
+
+			if assets.Turrets[index].LockedType == 3 {
+				for _, otherTurret := range assets.Turrets {
+					if int(otherTurret.ID) == assets.Turrets[index].LockedID {
+						trgtX = otherTurret.Position.X + float32(otherTurret.Texture.Width)/2
+						trgtY = otherTurret.Position.Y + float32(otherTurret.Texture.Height)/2
+					}
+				}
+			}
+
+			if assets.Turrets[index].Ticker <= 90 {
+				assets.Turrets[index].Ticker++
+			} else if assets.Turrets[index].Ticker > 90 && assets.Turrets[index].Ticker < 120 {
+				assets.Turrets[index].Ticker++
+				assets.Turrets[index].Thick++
+			} else if assets.Turrets[index].Ticker == 120 {
+				assets.Turrets[index].Ticker = 0
+				assets.Turrets[index].Thick = 0
+
+				if assets.Turrets[index].LockedType == 1 {
+					for stationIndex, station := range assets.Stations {
+						if int(station.ID) == assets.Turrets[index].LockedID {
+							assets.Stations[stationIndex].Health -= TurretDamage
+
+							if assets.Stations[stationIndex].Health <= 0 {
+								assets.Stations[stationIndex].OwnerID = -1
+								assets.Turrets[index].LockedID = -1
+							}
+						}
+					}
+				}
+
+				if assets.Turrets[index].LockedType == 3 {
+					for turretIndex, otherTurret := range assets.Turrets {
+						if int(otherTurret.ID) == assets.Turrets[index].LockedID {
+							assets.Turrets[turretIndex].Health -= TurretDamage
+
+							if assets.Turrets[turretIndex].Health <= 0 {
+								assets.Turrets = append(assets.Turrets[:turretIndex], assets.Turrets[turretIndex+1:]...)
+								assets.Turrets[index].LockedID = -1
+							}
+						}
+					}
+				}
+
+				if assets.Turrets[index].LockedType == 2 {
+					for factoryIndex, factory := range assets.Factories {
+						if int(factory.ID) == assets.Turrets[index].LockedID {
+							assets.Factories[factoryIndex].Health -= TurretDamage
+
+							if assets.Factories[factoryIndex].Health <= 0 {
+								assets.Factories = append(assets.Factories[:factoryIndex], assets.Factories[factoryIndex+1:]...)
+								assets.Turrets[index].LockedID = -1
+							}
+						}
+					}
+				}
+
+				rl.DrawLineEx(rl.Vector2{turret.Position.X, turret.Position.Y}, rl.Vector2{trgtX, trgtY}, float32(turret.Thick)/5, rl.Red)
+			}
+
+			fmt.Println("dıkşın")
 		}
 	}
 

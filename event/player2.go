@@ -1,6 +1,7 @@
 package event
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 
@@ -59,6 +60,37 @@ func Player2Controller() {
 		}
 	}
 
+	// NEAR BY TURRET
+	if rl.IsKeyPressed(rl.KeyN) && assets.Player2Inventory.MechanicParts < assets.TurretCost {
+		fmt.Println("hololoooooooo")
+	} else if rl.IsKeyDown(rl.KeyN) {
+		// TURRET COLLIDING
+		for index, turret := range assets.Turrets {
+
+			if rl.CheckCollisionCircleRec(rl.Vector2{(turret.Position.X + float32(0)/2), (turret.Position.Y + float32(0)/2)}, assets.TurretRadius, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) {
+				if turret.OwnerID == assets.PlayerID {
+					if turret.Health > 0 {
+						assets.Turrets[index].Health -= 1
+						assets.DrawPrompter("Removing turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
+					} else if turret.Health <= 0 {
+						assets.Turrets = append(assets.Turrets[:index], assets.Turrets[index+1:]...)
+						assets.Player2Inventory.MechanicParts += assets.TurretCost * 2 / 3
+					}
+
+				} else if turret.OwnerID != assets.PlayerID {
+					if turret.Health > 0 && assets.Player2Inventory.MechanicParts >= float32(turret.Health) {
+						assets.Turrets[index].Health -= 1
+						assets.Player2Inventory.MechanicParts -= 15 / 100
+						assets.DrawPrompter("Destroying turret. %"+strconv.Itoa(100-int(turret.Health)), 23, 235)
+					} else if turret.Health <= 0 {
+						assets.Turrets = append(assets.Turrets[:index], assets.Turrets[index+1:]...)
+					}
+				}
+			}
+
+		}
+	}
+
 	// IF NEAR BY ANY TOWER
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius2, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) {
@@ -71,13 +103,8 @@ func Player2Controller() {
 			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.Player2Inventory.MechanicParts > 0 {
-<<<<<<< HEAD
-				if rl.IsKeyDown(rl.KeyRightShift) {
-					assets.Player2 = rl.LoadTexture("sprites/p1_8.png")
-=======
-				if rl.IsKeyDown(rl.KeyE) {
+				if rl.IsKeyDown(rl.KeyN) {
 					assets.Player2 = rl.LoadTexture("sprites/p2_8.png")
->>>>>>> 9cf52652e1e7288d6701863c87790ec0235a8601
 					if station.OwnerID == -1 {
 						assets.Stations[index].Health += 0.25
 						assets.Player2Inventory.MechanicParts -= 0.2
