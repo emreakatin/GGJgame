@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/emreakatin/GGJgame/assets"
-	"github.com/emreakatin/GGJgame/network"
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -46,8 +45,6 @@ func PlayerController() {
 			assets.Camera.Offset.Y -= Speed
 			assets.PlayerRotation = 0
 			Animation = true
-			network.Post("/id/"+strconv.Itoa(assets.PlayerID), string(information))
-
 			PlayerAnimation()
 		}
 	}
@@ -58,8 +55,6 @@ func PlayerController() {
 			assets.Camera.Offset.Y += Speed
 			assets.PlayerRotation = 180
 			Animation = true
-			network.Post("/id/"+strconv.Itoa(assets.PlayerID), string(information))
-
 			PlayerAnimation()
 		}
 	}
