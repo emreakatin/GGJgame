@@ -7,7 +7,6 @@ import (
 
 var promptTicker = 0
 var promptFlag = false
-var MPFlag = false
 var MPTicker = 0
 
 func FactoryController() {

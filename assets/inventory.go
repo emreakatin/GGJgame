@@ -13,7 +13,6 @@ const (
 const (
 	TurretCost  = 30
 	FactoryCost = 100
-	BridgeCost  = 60
 )
 
 type Inventory struct {
@@ -49,11 +48,5 @@ func DrawInventory() {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 118), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
 	} else {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 118), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
-	}
-
-	if PlayerInventory.MechanicParts < BridgeCost {
-		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 86), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
-	} else {
-		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 86), float32(Background.Height - InventoryBlockTexture.Height)}, rl.White)
 	}
 }
