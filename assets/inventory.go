@@ -23,12 +23,26 @@ type Inventory struct {
 }
 
 var PlayerInventory Inventory
+var Player2Inventory Inventory
+var Player3Inventory Inventory
 
 var InventoryBlockTexture rl.Texture2D
 
 func CreateInventory() {
 	PlayerInventory = Inventory{
 		Player:        PlayerID,
+		MechanicParts: 130000,
+		Turret:        0,
+	}
+
+	PlayerInventory = Inventory{
+		Player:        Player2ID,
+		MechanicParts: 130000,
+		Turret:        0,
+	}
+
+	PlayerInventory = Inventory{
+		Player:        Player3ID,
 		MechanicParts: 130000,
 		Turret:        0,
 	}
