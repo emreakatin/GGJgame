@@ -80,9 +80,9 @@ func GenerateStations() []assets.Station {
 				300,
 			},
 			Texture: texture,
-			OwnerID: 5,
+			OwnerID: 2,
 			ID:      6,
-			Health:  0,
+			Health:  90,
 		},
 		assets.Station{
 			Position: rl.Vector2{
@@ -110,9 +110,9 @@ func GenerateStations() []assets.Station {
 				300,
 			},
 			Texture: texture,
-			OwnerID: 4,
+			OwnerID: 2,
 			ID:      9,
-			Health:  0,
+			Health:  90,
 		},
 		assets.Station{
 			Position: rl.Vector2{
