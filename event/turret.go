@@ -25,7 +25,7 @@ func TurretController() {
 					OwnerID:  assets.PlayerID,
 					Position: assets.PlayerPosition,
 					Health:   100,
-					Rotation: assets.PlayerRotation,
+					Rotation: 0,
 					Texture:  rl.LoadTexture("sprites/turret.png"),
 					LockedID: -1,
 				}
@@ -104,22 +104,29 @@ func TurretController() {
 			// }
 
 			// STATION CHECK
+			mousePosition = rl.GetMousePosition()
 			for _, station := range assets.Stations {
 				if station.OwnerID != -1 && station.OwnerID != int(assets.PlayerID) {
 					if rl.CheckCollisionCircleRec(rl.Vector2{turret.Position.X + float32(0)/2, turret.Position.Y + float32(0)/2}, assets.FireRadius, rl.Rectangle{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2), float32(station.Texture.Width), float32(station.Texture.Height)}) {
-						radian := math.Atan2(float64((turret.Position.X)-station.Position.Y), float64(station.Position.X-turret.Position.Y))
+						radian := math.Atan2(float64(turret.Position.Y-station.Position.Y)+float64(station.Texture.Height/2), float64(turret.Position.X-station.Position.X)+float64(station.Texture.Width/2))
 						degree := radian * 180 / math.Pi
-						if degree >= 0 && degree <= 90 {
-							degree = -1*degree + 90
-						} else if degree <= -90 && degree >= -180 {
-							degree += 270 + 2*math.Abs(degree+90)
-						} else if degree <= 0 && degree >= -90 {
-							degree += 90 + 2*math.Abs(degree)
-						} else if degree <= 180 && degree >= 90 {
-							degree += 90 + 2*math.Abs(degree-180)
+						fmt.Println("ilk degre", degree)
+						if degree < -90 && degree > -180 {
+							degree = degree - 90
 						}
 
+						// if degree >= 0 && degree <= 90 {
+						// 	degree = -1*degree + 90
+						// } else if degree <= -90 && degree >= -180 {
+						// 	degree += 270 + 2*math.Abs(degree+90)
+						// } else if degree <= 0 && degree >= -90 {
+						// 	degree += 90 + 2*math.Abs(degree)
+						// } else if degree <= 180 && degree >= 90 {
+						// 	degree += 90 + 2*math.Abs(degree-180)
+						// }
+
 						fmt.Println(degree)
+						fmt.Println(mousePosition)
 						assets.Turrets[index].Rotation = float32(degree)
 						assets.Turrets[index].LockedID = int(station.ID)
 						assets.Turrets[index].LockedType = 1

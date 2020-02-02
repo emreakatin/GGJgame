@@ -78,17 +78,17 @@ func PlayerController() {
 			if assets.Stations[index].Health <= 100.0 && assets.PlayerInventory.MechanicParts > 0 {
 				if rl.IsKeyDown(rl.KeyE) {
 					assets.Player = rl.LoadTexture("sprites/p1_8.png")
-					if station.OwnerID != int(assets.PlayerID) {
-						assets.Stations[index].Health += RepairSpeed
+					if station.OwnerID == -1 {
+						assets.Stations[index].Health += 0.25
 						assets.PlayerInventory.MechanicParts -= 0.2
 						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						if assets.Stations[index].Health == 100 {
 							assets.Stations[index].OwnerID = int(assets.PlayerID)
 						}
 					} else {
-						if assets.Stations[index].Health > 0.0 && station.OwnerID != int(assets.PlayerID) {
-							assets.Stations[index].Health -= RepairRadius
-							assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(100-assets.Stations[index].Health)), 23, 250)
+						if station.OwnerID != int(assets.PlayerID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 {
+							assets.Stations[index].Health -= 0.5
+							assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						} else if assets.Stations[index].Health == 0 {
 							assets.Stations[index].OwnerID = -1
 						}
