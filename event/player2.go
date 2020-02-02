@@ -69,15 +69,13 @@ func Player2Controller() {
 			} else if station.OwnerID == int(assets.Player2ID) {
 				assets.DrawPrompter("You're in safe!", 20, 410)
 			}
+			if station.OwnerID == int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.Stations[index].Health < 100 {
+				assets.DrawPrompter("Somebody attacked your tower! Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to repair this tower", 23, 250)
+			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.Player2Inventory.MechanicParts > 0 {
-<<<<<<< HEAD
-				if rl.IsKeyDown(rl.KeyRightShift) {
-					assets.Player2 = rl.LoadTexture("sprites/p1_8.png")
-=======
 				if rl.IsKeyDown(rl.KeyE) {
 					assets.Player2 = rl.LoadTexture("sprites/p2_8.png")
->>>>>>> 9cf52652e1e7288d6701863c87790ec0235a8601
 					if station.OwnerID == -1 {
 						assets.Stations[index].Health += 0.25
 						assets.Player2Inventory.MechanicParts -= 0.2
@@ -85,6 +83,10 @@ func Player2Controller() {
 						if assets.Stations[index].Health == 100 {
 							assets.Stations[index].OwnerID = int(assets.Player2ID)
 						}
+					} else if station.OwnerID == int(assets.PlayerID) {
+						assets.Stations[index].Health += 0.25
+						assets.PlayerInventory.MechanicParts -= 0.25
+						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 					} else {
 						if station.OwnerID != int(assets.Player2ID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 {
 							assets.Stations[index].Health -= 0.5

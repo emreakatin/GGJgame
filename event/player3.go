@@ -69,6 +69,9 @@ func Player3Controller() {
 			} else if station.OwnerID == int(assets.Player3ID) {
 				assets.DrawPrompter("You're in safe!", 20, 410)
 			}
+			if station.OwnerID == int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.Stations[index].Health < 100 {
+				assets.DrawPrompter("Somebody attacked your tower! Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to repair this tower", 23, 250)
+			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.Player3Inventory.MechanicParts > 0 {
 				if rl.IsKeyDown(rl.KeyE) {
@@ -80,6 +83,10 @@ func Player3Controller() {
 						if assets.Stations[index].Health == 100 {
 							assets.Stations[index].OwnerID = int(assets.Player3ID)
 						}
+					} else if station.OwnerID == int(assets.PlayerID) {
+						assets.Stations[index].Health += 0.25
+						assets.PlayerInventory.MechanicParts -= 0.25
+						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 					} else {
 						if station.OwnerID != int(assets.Player3ID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 {
 							assets.Stations[index].Health -= 0.5
