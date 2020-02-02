@@ -20,9 +20,9 @@ func GenerateStations() []assets.Station {
 				25,
 			},
 			Texture: texture,
-			OwnerID: 3,
+			OwnerID: -1,
 			ID:      0,
-			Health:  70,
+			Health:  0,
 		},
 		assets.Station{
 			Position: rl.Vector2{
@@ -82,7 +82,7 @@ func GenerateStations() []assets.Station {
 			Texture: texture,
 			OwnerID: -1,
 			ID:      6,
-			Health:  90,
+			Health:  0,
 		},
 		assets.Station{
 			Position: rl.Vector2{
@@ -112,7 +112,7 @@ func GenerateStations() []assets.Station {
 			Texture: texture,
 			OwnerID: -1,
 			ID:      9,
-			Health:  90,
+			Health:  0,
 		},
 		assets.Station{
 			Position: rl.Vector2{

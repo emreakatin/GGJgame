@@ -21,7 +21,7 @@ type Turret struct {
 
 	OwnerID  uint
 	Position rl.Vector2
-	Health   uint
+	Health   float32
 
 	ReloadFPS int
 

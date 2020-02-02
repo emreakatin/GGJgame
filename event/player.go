@@ -63,13 +63,13 @@ func PlayerController() {
 	// IF NEAR BY ANY TOWER
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
-			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts >= 0 {
+			if station.OwnerID == -1 && (!rl.IsKeyDown(rl.KeyE)) && assets.PlayerInventory.MechanicParts >= 0 {
 				assets.DrawPrompter("Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to repair this tower", 23, 250)
 			} else if station.OwnerID == -1 && rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts <= 0 {
 				assets.DrawPrompter("You do not have enough money!", 23, 250)
 			} else if station.OwnerID == int(assets.PlayerID) {
 				assets.DrawPrompter("You're in safe!", 20, 410)
-			} else if station.OwnerID != int(assets.PlayerID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 && !rl.IsKeyDown(rl.KeyE) {
+			} else if station.OwnerID != int(assets.PlayerID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 && (!rl.IsKeyDown(rl.KeyE) || !rl.IsKeyDown(rl.KeyQ)) {
 				assets.DrawPrompter("Destroying the enemy tower will cost "+strconv.Itoa(int(assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to destroy this tower", 23, 250)
 			}
 			if station.OwnerID == int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.Stations[index].Health < 100 {

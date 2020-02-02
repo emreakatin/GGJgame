@@ -6,7 +6,7 @@ import (
 
 var PlayerID uint = 1
 
-var PlayerName string = "nukeci"
+var PlayerName string = "NUKECI"
 
 var PlayerPosition rl.Vector2
 

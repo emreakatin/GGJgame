@@ -30,27 +30,27 @@ var InventoryBlockTexture rl.Texture2D
 func CreateInventory() {
 	PlayerInventory = Inventory{
 		Player:        PlayerID,
-		MechanicParts: 130000,
+		MechanicParts: 10000,
 		Turret:        0,
 	}
 
 	Player2Inventory = Inventory{
 		Player:        Player2ID,
-		MechanicParts: 130000,
+		MechanicParts: 10000,
 		Turret:        0,
 	}
 
 	Player3Inventory = Inventory{
 		Player:        Player3ID,
-		MechanicParts: 130000,
+		MechanicParts: 10000,
 		Turret:        0,
 	}
 
-	InventoryBlockTexture = rl.LoadTexture("sprites/texturesquare.png")
+	InventoryBlockTexture = rl.LoadTexture("sprites/texturesquareee.png")
 }
 
 func DrawInventory() {
-	rl.DrawText(strconv.Itoa(int(PlayerInventory.MechanicParts)), Background.Width-195, Background.Height-26, 23, rl.White)
+	rl.DrawText(strconv.Itoa(int(PlayerInventory.MechanicParts)), Background.Width-250, Background.Height-26, 23, rl.White)
 
 	if PlayerInventory.MechanicParts < TurretCost {
 		rl.DrawTextureRec(InventoryBlockTexture, rl.Rectangle{0, 0, float32(InventoryBlockTexture.Width), float32(InventoryBlockTexture.Height)}, rl.Vector2{float32(Background.Width - 150), float32(Background.Height - InventoryBlockTexture.Height)}, rl.Black)
