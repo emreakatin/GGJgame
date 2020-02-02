@@ -60,5 +60,7 @@ func Run() {
 	event.Player3Controller()
 
 	event.TurretController()
+	event.Turret2Controller()
+	// event.TurretController()
 	event.FactoryController()
 }

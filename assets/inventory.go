@@ -35,13 +35,13 @@ func CreateInventory() {
 		Turret:        0,
 	}
 
-	PlayerInventory = Inventory{
+	Player2Inventory = Inventory{
 		Player:        Player2ID,
 		MechanicParts: 130000,
 		Turret:        0,
 	}
 
-	PlayerInventory = Inventory{
+	Player3Inventory = Inventory{
 		Player:        Player3ID,
 		MechanicParts: 130000,
 		Turret:        0,

@@ -62,16 +62,16 @@ func Player2Controller() {
 	// IF NEAR BY ANY TOWER
 	for index, station := range assets.Stations {
 		if rl.CheckCollisionCircleRec(rl.Vector2{station.Position.X + float32(station.Texture.Width/2), station.Position.Y + float32(station.Texture.Height/2)}, RepairRadius2, rl.Rectangle{float32(assets.Player2Position.X), float32(assets.Player2Position.Y), float32(assets.Player2.Width * assets.Player2Scale), float32(assets.Player2.Height * assets.Player2Scale)}) {
-			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyE) && assets.Player2Inventory.MechanicParts >= 0 {
+			if station.OwnerID == -1 && !rl.IsKeyDown(rl.KeyRightShift) && assets.Player2Inventory.MechanicParts >= 0 {
 				assets.DrawPrompter("Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" for repair this tower", 23, 250)
-			} else if station.OwnerID == -1 && rl.IsKeyDown(rl.KeyE) && assets.Player2Inventory.MechanicParts <= 0 {
+			} else if station.OwnerID == -1 && rl.IsKeyDown(rl.KeyRightShift) && assets.Player2Inventory.MechanicParts <= 0 {
 				assets.DrawPrompter("You do not have enough money!", 23, 250)
 			} else if station.OwnerID == int(assets.Player2ID) {
 				assets.DrawPrompter("You're in safe!", 20, 410)
 			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.Player2Inventory.MechanicParts > 0 {
-				if rl.IsKeyDown(rl.KeyE) {
+				if rl.IsKeyDown(rl.KeyRightShift) {
 					assets.Player2 = rl.LoadTexture("sprites/p1_8.png")
 					if station.OwnerID == -1 {
 						assets.Stations[index].Health += 0.25
