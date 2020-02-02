@@ -4,7 +4,7 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-var Player2ID uint = 2
+var Player2ID uint = 3
 
 var Player2Name string = "yeygym"
 

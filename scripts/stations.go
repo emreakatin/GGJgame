@@ -20,7 +20,7 @@ func GenerateStations() []assets.Station {
 				25,
 			},
 			Texture: texture,
-			OwnerID: 1,
+			OwnerID: 3,
 			ID:      0,
 			Health:  70,
 		},
