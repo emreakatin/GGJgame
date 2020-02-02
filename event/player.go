@@ -1,6 +1,7 @@
 package event
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 
@@ -15,6 +16,7 @@ var (
 	mousePosition   rl.Vector2
 	Animation               = false
 	AnimationTicker float32 = 0
+	DestroyFlag             = false
 )
 
 func PlayerController() {
@@ -71,27 +73,39 @@ func PlayerController() {
 			} else if station.OwnerID != int(assets.PlayerID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 && !rl.IsKeyDown(rl.KeyE) {
 				assets.DrawPrompter("Destroying the enemy tower will cost "+strconv.Itoa(int(assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to destroy this tower", 23, 250)
 			}
-			if assets.Stations[index].Health <= 100.0 && assets.PlayerInventory.MechanicParts > 0 {
+			if station.OwnerID == int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.Stations[index].Health < 100 {
+				assets.DrawPrompter("Somebody attacked your tower! Repairing the tower will cost "+strconv.Itoa(int(100.0-assets.Stations[index].Health))+" Mechanical Part. Press \"E\" to repair this tower", 23, 250)
+			}
+			fmt.Println(assets.Stations[index].Health)
+			if assets.PlayerInventory.MechanicParts > 0 {
 				if rl.IsKeyDown(rl.KeyE) {
 					assets.Player = rl.LoadTexture("sprites/p1_8.png")
-					if station.OwnerID == -1 {
+					if assets.Stations[index].Health < 100.0 && assets.Stations[index].OwnerID == -1 && DestroyFlag == false {
 						assets.Stations[index].Health += 0.25
 						assets.PlayerInventory.MechanicParts -= 0.25
 						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
 						if assets.Stations[index].Health == 100 {
 							assets.Stations[index].OwnerID = int(assets.PlayerID)
+
 						}
-					} else {
-						if station.OwnerID != int(assets.PlayerID) && station.OwnerID != -1 && assets.Stations[index].Health > 0 {
-							assets.Stations[index].Health -= 0.5
-							assets.PlayerInventory.MechanicParts -= 0.5
-							assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
-						} else if assets.Stations[index].Health == 0 {
+					} else if assets.Stations[index].Health < 100.0 && assets.Stations[index].OwnerID == int(assets.PlayerID) && DestroyFlag == false {
+						assets.Stations[index].Health += 0.25
+						assets.PlayerInventory.MechanicParts -= 0.25
+						assets.DrawPrompter("Repairing! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
+					} else if assets.Stations[index].Health >= 0 && assets.Stations[index].OwnerID != int(assets.PlayerID) && assets.Stations[index].OwnerID != -1 {
+						DestroyFlag = true
+						assets.Stations[index].Health -= 0.5
+						assets.PlayerInventory.MechanicParts -= 0.5
+						assets.DrawPrompter("Destroying enemy tower! %"+strconv.Itoa(int(assets.Stations[index].Health)), 23, 250)
+						if assets.Stations[index].Health < 1 {
 							assets.Stations[index].OwnerID = -1
+							DestroyFlag = false
 						}
 					}
 				}
-
+				//} else if assets.Stations[index].Health == 0 && assets.Stations[index].OwnerID != int(assets.PlayerID) && assets.Stations[index].OwnerID != -1{
+				//	assets.Stations[index].OwnerID = -1
+				//	}
 				// STATION ANIMATION
 				if station.Health <= 25 {
 					assets.Stations[index].Texture = rl.LoadTexture("sprites/station0.png")
@@ -112,10 +126,10 @@ func PlayerController() {
 	// DESTROYING ENEMIES FACTORIES
 	for index, factory := range assets.Factories {
 		if rl.CheckCollisionCircleRec(rl.Vector2{factory.Position.X + float32(factory.Texture.Width/2), factory.Position.Y + float32(factory.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
-			if factory.OwnerID != int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts >= 0 {
+			if factory.OwnerID != int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts > 0 {
 				assets.DrawPrompter("Destroying the enemy factory will cost "+strconv.Itoa(int(assets.Factories[index].Health))+" Mechanical Part. Press \"E\" to destroy this factory", 23, 250)
 			}
-			if factory.OwnerID != int(assets.PlayerID) && rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts >= 0 {
+			if factory.OwnerID != int(assets.PlayerID) && rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts > 0 {
 				assets.DrawPrompter("Destroying enemy factory! %"+strconv.Itoa(int(assets.Factories[index].Health)), 23, 250)
 				assets.Factories[index].Health -= 0.5
 				assets.PlayerInventory.MechanicParts -= 0.5
