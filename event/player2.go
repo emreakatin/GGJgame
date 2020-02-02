@@ -71,8 +71,13 @@ func Player2Controller() {
 			}
 
 			if assets.Stations[index].Health <= 100.0 && assets.Player2Inventory.MechanicParts > 0 {
+<<<<<<< HEAD
 				if rl.IsKeyDown(rl.KeyRightShift) {
 					assets.Player2 = rl.LoadTexture("sprites/p1_8.png")
+=======
+				if rl.IsKeyDown(rl.KeyE) {
+					assets.Player2 = rl.LoadTexture("sprites/p2_8.png")
+>>>>>>> 9cf52652e1e7288d6701863c87790ec0235a8601
 					if station.OwnerID == -1 {
 						assets.Stations[index].Health += 0.25
 						assets.Player2Inventory.MechanicParts -= 0.2
@@ -129,35 +134,35 @@ func Player2Animation2() {
 	if Animation2 == true {
 		Animation2Ticker++
 		if Animation2Ticker <= 4 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_1.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_0.png")
 		} else if Animation2Ticker <= 8 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_2.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_1.png")
 		} else if Animation2Ticker <= 12 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_3.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_2.png")
 		} else if Animation2Ticker <= 16 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_4.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_3.png")
 		} else if Animation2Ticker <= 20 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_5.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_4.png")
 		} else if Animation2Ticker <= 24 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_6.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_5.png")
 		} else if Animation2Ticker <= 28 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_7.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_6.png")
 		} else if Animation2Ticker <= 32 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_8.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_7.png")
 		} else if Animation2Ticker <= 36 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_7.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_6.png")
 		} else if Animation2Ticker <= 40 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_6.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_5.png")
 		} else if Animation2Ticker <= 44 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_5.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_4.png")
 		} else if Animation2Ticker <= 48 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_4.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_3.png")
 		} else if Animation2Ticker <= 52 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_3.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_2.png")
 		} else if Animation2Ticker <= 56 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_2.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_1.png")
 		} else if Animation2Ticker <= 60 {
-			assets.Player2 = rl.LoadTexture("sprites/p1_1.png")
+			assets.Player2 = rl.LoadTexture("sprites/p2_0.png")
 			Animation2 = false
 			Animation2Ticker = 0
 		}

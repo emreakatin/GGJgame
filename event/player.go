@@ -109,6 +109,22 @@ func PlayerController() {
 		}
 	}
 	assets.UpdateCamera()
+	// DESTROYING ENEMIES FACTORIES
+	for index, factory := range assets.Factories {
+		if rl.CheckCollisionCircleRec(rl.Vector2{factory.Position.X + float32(factory.Texture.Width/2), factory.Position.Y + float32(factory.Texture.Height/2)}, RepairRadius, rl.Rectangle{float32(assets.PlayerPosition.X), float32(assets.PlayerPosition.Y), float32(assets.Player.Width * assets.PlayerScale), float32(assets.Player.Height * assets.PlayerScale)}) {
+			if factory.OwnerID != int(assets.PlayerID) && !rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts >= 0 {
+				assets.DrawPrompter("Destroying the enemy factory will cost "+strconv.Itoa(int(assets.Factories[index].Health))+" Mechanical Part. Press \"E\" to destroy this factory", 23, 250)
+			}
+			if factory.OwnerID != int(assets.PlayerID) && rl.IsKeyDown(rl.KeyE) && assets.PlayerInventory.MechanicParts >= 0 {
+				assets.DrawPrompter("Destroying enemy factory! %"+strconv.Itoa(int(assets.Factories[index].Health)), 23, 250)
+				assets.Factories[index].Health -= 0.5
+				assets.PlayerInventory.MechanicParts -= 0.5
+				if assets.Factories[index].Health == 0 {
+					assets.Factories = append(assets.Factories[:index], assets.Factories[index+1:]...)
+				}
+			}
+		}
+	}
 }
 
 func isColliding(nextPosition rl.Vector2) bool {
@@ -120,7 +136,7 @@ func isColliding(nextPosition rl.Vector2) bool {
 		}
 	}
 	for _, factory := range assets.Factories {
-		if rl.CheckCollisionRecs(rl.Rectangle{factory.Position.X, factory.Position.Y, float32(factory.Texture.Width), float32(factory.Texture.Height)}, rl.Rectangle{nextPosition.X, nextPosition.Y, assets.PlayerRectangle.Width, assets.PlayerRectangle.Height}) {
+		if rl.CheckCollisionRecs(rl.Rectangle{factory.Position.X, factory.Position.Y - 15.0, float32(factory.Texture.Width), float32(factory.Texture.Height)}, rl.Rectangle{nextPosition.X, nextPosition.Y, assets.PlayerRectangle.Width, assets.PlayerRectangle.Height}) {
 			return true
 		}
 	}

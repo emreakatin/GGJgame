@@ -18,7 +18,7 @@ var Player3Rotation float32
 var Player3Scale int32
 
 func CreatePlayer3() {
-	Player3 = rl.LoadTexture("sprites/p1_0.png")
+	Player3 = rl.LoadTexture("sprites/p3_1.png")
 
 	Player3Position = rl.Vector2{float32(Background.Width / 2), float32(Background.Height / 2)}
 

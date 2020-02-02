@@ -7,9 +7,9 @@ type Factory struct {
 
 	Texture rl.Texture2D
 
-	OwnerID   uint
+	OwnerID   int
 	Position  rl.Vector2
-	Health    uint
+	Health    float32
 	Rotation  float32
 	ReloadFPS int
 }
